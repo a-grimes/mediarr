@@ -197,3 +197,24 @@ services:
       - radarr
       - sonarr
     restart: unless-stopped
+
+  # -----
+  # audiobookshelf
+  # -----
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    container_name: audiobookshelf
+    # ABS runs on port 13378 by default. If you want to change
+    # the port, only change the external port
+    user: ${PUID}:${PGID}
+    ports:
+      - 13378:13378
+    environment:
+      - TZ=${TZ}
+      - PORT=13378
+    volumes:
+      - /opt/docker/mediarr/config/audiobookshelf:/config
+      - /opt/docker/mediarr/config/audiobookshelf:/metadata
+      - /mnt/media/downloads/media/audiobooks:/audiobooks
+      #- /volume1/data/media/podcasts:/podcasts
+    restart: unless-stopped
