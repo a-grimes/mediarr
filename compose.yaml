@@ -24,10 +24,10 @@ services:
       - FIREWALL_INPUT_PORTS=8090,9696
       - VPN_PORT_FORWARDING=on
       - PORT_FORWARD_ONLY=on
-      - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c 'wget -O- -nv --retry-connrefused --post-data "json={\"listen_port\":{{PORT}},\"current_network_interface\":\"{{VPN_INTERFACE}}\",\"random_port\":false,\"upnp\":false}" http://server.local:8090/api/v2/app/setPreferences'
-      - VPN_PORT_FORWARDING_DOWN_COMMAND=/bin/sh -c 'wget -O- -nv --retry-connrefused --post-data "json={\"listen_port\":0,\"current_network_interface\":\"lo\"}" http://server.local:8090/api/v2/app/setPreferences'
+      - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c 'wget -O- -nv --retry-connrefused --post-data "json={\"listen_port\":{{PORT}},\"current_network_interface\":\"{{VPN_INTERFACE}}\",\"random_port\":false,\"upnp\":false}" http://10.10.20.31:8090/api/v2/app/setPreferences'
+      - VPN_PORT_FORWARDING_DOWN_COMMAND=/bin/sh -c 'wget -O- -nv --retry-connrefused --post-data "json={\"listen_port\":0,\"current_network_interface\":\"lo\"}" http://10.10.20.31:8090/api/v2/app/setPreferences'
     volumes:
-      - /volume1/docker/gluetun:/gluetun
+      - /opt/docker/mediarr/config/gluetun:/gluetun
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "https://ipinfo.io"]
       interval: 30s
@@ -52,8 +52,8 @@ services:
       - TZ=${TZ}
       - WEBUI_PORT=8090
     volumes:
-      - /volume1/docker/qbittorrent:/config
-      - /volume1/data:/data
+      - /opt/docker/mediarr/config/qbittorrent:/config
+      - /mnt/media/downloads:/data
     depends_on:
       gluetun:
         condition: service_healthy
@@ -92,7 +92,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - /volume1/docker/prowlarr:/config
+      - /opt/docker/mediarr/config/prowlarr:/config
     depends_on:
       gluetun:
         condition: service_healthy
@@ -114,8 +114,8 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - /volume1/docker/radarr:/config
-      - /volume1/data:/data
+      - /opt/docker/mediarr/config/radarr:/config
+      - /mnt/media/downloads:/data
     restart: unless-stopped
 
   # -----
@@ -134,8 +134,8 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - /volume1/docker/sonarr:/config
-      - /volume1/data:/data
+      - /opt/docker/mediarr/config/sonarr:/config
+      - /mnt/media/downloads:/data
     restart: unless-stopped
 
   # -----
@@ -150,7 +150,7 @@ services:
       - RECYCLARR_CREATE_CONFIG=true
       - TZ=${TZ}
     volumes:
-      - /volume1/docker/recyclarr:/config
+      - /opt/docker/mediarr/config/recyclarr:/config
     restart: unless-stopped
 
   # -----
@@ -169,8 +169,8 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - /volume1/docker/bazarr:/config
-      - /volume1/data/:/data
+      - /opt/docker/mediarr/config/bazarr:/config
+      - /mnt/media/downloads/:/data
     depends_on:
       - radarr
       - sonarr
@@ -192,7 +192,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - /volume1/docker/seerr:/config
+      - /opt/docker/mediarr/config/seerr:/config
     depends_on:
       - radarr
       - sonarr
