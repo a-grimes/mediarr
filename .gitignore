@@ -1,5 +1,5 @@
 # Docker application data
-mediarr/config/
+/config
 
 # Environment/secrets
 .env
