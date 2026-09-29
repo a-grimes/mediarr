@@ -2,6 +2,7 @@
 
 ## current versions
 ### mediarr
+#### v1.0 Synology Stable
 |image|source|version|pulled|
 |-----|------|-------|------|
 |gluetun|`qmcgaw/gluetun`|3.41.3|08/07/2026 07:48:38|
