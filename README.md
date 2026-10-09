@@ -1,8 +1,7 @@
 # README
 
-## current versions
-### mediarr
-#### v1.0 Synology Stable
+## mediarr
+### v1.0 Synology Stable
 |image|source|version|pulled|
 |-----|------|-------|------|
 |gluetun|`qmcgaw/gluetun`|3.41.3|08/07/2026 07:48:38|
@@ -19,29 +18,3 @@
 |image|source|version|pulled|
 |-----|------|-------|------|
 |audiobookshelf|`ghcr.io/advplyr/audiobookshelf`|latest|07/27/2026 18:34:22|
-
-## ideas/projects/containers
-### new `scrypted` project
-
-- video camera integrarion
-- full, historic recording
-- facial recognition?
-- stream to Google Home
-
-### new `nginx` reverse proxy project
-
-- new proxy network needed
-- keep internal (for now) at *.local adresses
-- (future) owned domain
-  - Let's Encrypt certs
-  - external access?
-
-### new `homarr` / `homepage` project
-
-- container and service monitoring?
-  - move to separate container
-
-### new `networks` project
-
-- (networks) create a new project for networks
-  - bridge network and glutun - pull out gluetun from mediarr
