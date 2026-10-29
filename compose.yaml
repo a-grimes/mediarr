@@ -10,12 +10,9 @@ services:
   #
   # radarr (7878)
   # sonarr (8989)
-  # bindery (8787)
-  # lazylibrarian (5299)
   # 
   # bazarr (6767)
   # seerr (5055)
-  # libreseerr (5000)
   #
   # audiobookshelf (13378)
   #
@@ -94,53 +91,6 @@ services:
       - TZ=${TZ}
     volumes:
       - /opt/docker/mediarr/config/prowlarr:/config
-    depends_on:
-      gluetun:
-        condition: service_healthy
-    restart: unless-stopped
-
-  # # -----
-  # # bindery
-  # # -----
-  bindery:
-    image: ghcr.io/vavallee/bindery:latest
-    container_name: bindery
-    ports:
-      - 8787:8787
-    user: "${PUID}:${PGID}"
-    security_opt:
-      - no-new-privileges:true
-    environment:
-      - TZ=${TZ}
-      - BINDERY_LOG_LEVEL=info
-      - BINDERY_DOWNLOAD_DIR=/data/torrents/completed/bindery
-      - BINDERY_AUDIOBOOK_DOWNLOAD_DIR=/data/torrents/completed/bindery
-      - BINDERY_LIBRARY_DIR=/data/media/books
-      - BINDERY_AUDIOBOOK_DIR=/data/media/audiobooks
-    volumes:
-      - /opt/docker/mediarr/config/bindery:/config
-      - /mnt/media:/data
-    restart: unless-stopped
-
-  # -----
-  # lazylibrarian
-  # -----
-  lazylibrarian:
-    image: lscr.io/linuxserver/lazylibrarian:latest
-    container_name: lazylibrarian
-    ports:
-      - 5299:5299
-    security_opt:
-      - no-new-privileges:true
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - UMASK=002
-      - DOCKER_MODS=linuxserver/mods:universal-calibre|linuxserver/mods:lazylibrarian-ffmpeg
-    volumes:
-      - /opt/docker/mediarr/config/lazylibrarian:/config
-      - /mnt/media:/data
     depends_on:
       gluetun:
         condition: service_healthy
@@ -242,22 +192,6 @@ services:
     depends_on:
       - radarr
       - sonarr
-    restart: unless-stopped
-
-  # -----
-  # libreseerr
-  # -----
-  libreseerr:
-    image: ghcr.io/zamnzim/libreseerr:latest
-    container_name: libreseerr
-    security_opt:
-      - no-new-privileges:true
-    ports:
-      - 5000:5000
-    environment:
-      - TZ=${TZ}
-    volumes:
-      - /opt/docker/mediarr/config/libreseerr:/app/data
     restart: unless-stopped
 
   # -----
