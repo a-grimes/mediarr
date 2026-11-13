@@ -6,7 +6,7 @@ services:
   #
   # qbittorrent (8090)
   # prowlarr (9696)
-  # byparr
+  # byparr (8191)
   #
   # radarr (7878)
   # sonarr (8989)
@@ -48,7 +48,7 @@ services:
     volumes:
       - /opt/docker/mediarr/config/gluetun:/gluetun
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "https://ipinfo.io"]
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:9999/"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -106,6 +106,7 @@ services:
     network_mode: service:gluetun
     security_opt:
       - no-new-privileges:true
+    shm_size: "1gb"
     environment:
       - LOG_LEVEL=info
       - LOG_HTML=false
