@@ -6,7 +6,7 @@
 |-----|------|-------|------|
 |gluetun|`qmcgaw/gluetun`|3.41.3|08/07/2026 07:48:38|
 |qbittorrent|`lscr.io/linuxserver/qbittorrent`|5.2.3|08/10/2026 17:26:06|
-|bypar|`ghcr.io/thephaseless/bypar`|*latest*|08/11/2026 06:06:11|
+|byparr|`ghcr.io/thephaseless/byparr`|*latest*|08/11/2026 06:06:11|
 |prowlarr|`lscr.io/linuxserver/prowlarr`|2.5.2.5491|08/05/2026 02:14:51|
 |radarr|`lscr.io/linuxserver/radarr`|6.3.0.10514|08/02/2026 13:51:32|
 |sonarr|`lscr.io/linuxserver/sonarr`|4.0.19.2979|08/07/2026 19:57:23|

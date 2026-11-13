@@ -31,6 +31,7 @@ services:
     ports:
       - 8090:8090 # qbittorrent webUI
       - 9696:9696 # prowlarr webUI
+      - 8191:8191 # byparr
     environment:
       - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
       - VPN_TYPE=${VPN_TYPE}
@@ -39,7 +40,7 @@ services:
       - SERVER_CITIES=${SERVER_CITIES}
       - TZ=${TZ}
       - FIREWALL=on # VPN kill switch
-      - FIREWALL_INPUT_PORTS=8090,9696
+      - FIREWALL_INPUT_PORTS=8090,9696,8191
       - VPN_PORT_FORWARDING=on
       - PORT_FORWARD_ONLY=on
       - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c 'wget -O- -nv --retry-connrefused --post-data "json={\"listen_port\":{{PORT}},\"current_network_interface\":\"{{VPN_INTERFACE}}\",\"random_port\":false,\"upnp\":false}" http://127.0.0.1:8090/api/v2/app/setPreferences'
@@ -102,15 +103,17 @@ services:
   byparr:
     image: ghcr.io/thephaseless/byparr:latest
     container_name: byparr
+    network_mode: service:gluetun
     security_opt:
       - no-new-privileges:true
-    ports:
-      - 8191:8191
     environment:
       - LOG_LEVEL=info
       - LOG_HTML=false
       - CAPTCHA_SOLVER=none
       - TZ=${TZ}
+    depends_on:
+      gluetun:
+        condition: service_healthy
     restart: unless-stopped
 
   # -----
